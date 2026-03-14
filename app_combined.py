@@ -16,16 +16,20 @@ logistic_model = joblib.load('Logistic_Regression_model.joblib')
 SVM_MODEL_PATH = "svm_brain_tumor_model.joblib"
 SVM_MODEL_URL = "https://drive.google.com/uc?export=download&id=1wuIrsNwuqPVWKm14OnYD2OC8pPy8T1zf"
 
-# Download SVM model if not present locally
-if not os.path.exists(SVM_MODEL_PATH):
-    print("Downloading SVM model from Google Drive...")
-    r = requests.get(SVM_MODEL_URL, allow_redirects=True)
-    with open(SVM_MODEL_PATH, "wb") as f:
-        f.write(r.content)
-    print("Downloaded SVM model successfully!")
+def load_svm_model():
+    if not os.path.exists(SVM_MODEL_PATH):
+        print("Downloading SVM model from Google Drive...")
+        r = requests.get(SVM_MODEL_URL, allow_redirects=True)
+        with open(SVM_MODEL_PATH, "wb") as f:
+            f.write(r.content)
+        print("Downloaded SVM model successfully!")
+    try:
+        return joblib.load(SVM_MODEL_PATH)
+    except Exception as e:
+        print(f"Failed to load SVM model: {e}")
+        return None
 
-# Load the SVM model
-svm_model = joblib.load(SVM_MODEL_PATH)
+svm_model = load_svm_model()
 
 
 # Class labels

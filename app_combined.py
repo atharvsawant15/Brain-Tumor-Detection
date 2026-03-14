@@ -4,13 +4,28 @@ import cv2
 from tensorflow.keras.models import load_model
 import joblib
 import os
+import requests
 
 app = Flask(__name__)
 
 # Load the models
 cnn_model = load_model('CNN_brain_tumor_model.h5')
 logistic_model = joblib.load('Logistic_Regression_model.joblib')
-svm_model = joblib.load('svm_brain_tumor_model.joblib')
+
+# Google Drive download settings
+SVM_MODEL_PATH = "svm_brain_tumor_model.joblib"
+SVM_MODEL_URL = "https://drive.google.com/uc?export=download&id=1wuIrsNwuqPVWKm14OnYD2OC8pPy8T1zf"
+
+# Download SVM model if not present locally
+if not os.path.exists(SVM_MODEL_PATH):
+    print("Downloading SVM model from Google Drive...")
+    r = requests.get(SVM_MODEL_URL, allow_redirects=True)
+    with open(SVM_MODEL_PATH, "wb") as f:
+        f.write(r.content)
+    print("Downloaded SVM model successfully!")
+
+# Load the SVM model
+svm_model = joblib.load(SVM_MODEL_PATH)
 
 
 # Class labels

@@ -37,4 +37,61 @@ Each model predicts the tumor type and displays probability scores.
 - HTML / CSS / JavaScript
 - Gunicorn (for deployment)
 
-## Project Structure
+## Installation
+1. Clone the repository:
+
+git clone https://github.com/atharvsawant15/Brain-Tumor-Detection
+
+cd brain-tumor-detection
+
+
+2. Create a virtual environment (optional):
+
+python -m venv venv
+source venv/bin/activate # On Windows: venv\Scripts\activate
+
+
+3. Install dependencies:
+
+pip install -r requirements.txt
+
+
+## Usage
+Run the Flask app:
+
+python app.py
+
+
+Open your browser and go to:
+
+http://127.0.0.1:5000/
+
+
+Upload an MRI image and view predictions.
+
+## Output
+- Predicted tumor type  
+- Probability scores from each model  
+- Display of uploaded image  
+
+## Deployment
+You can deploy using:
+- Gunicorn  
+- Heroku / Render / Railway  
+
+Run with:
+
+gunicorn app:app
+
+
+## Future Improvements
+- Add advanced deep learning models  
+- Improve accuracy with larger datasets  
+- Add Grad-CAM visualization  
+- Add user authentication  
+
+## Contributing
+Contributions are welcome. Feel free to fork the repository and submit a pull request.
+
+## License
+This project is open-source and available under the MIT License.
